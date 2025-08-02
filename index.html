@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Прапор України</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="prapor-container">
+      <div class="prapor">
+        <!-- Смуги будуть додані за допомогою JavaScript -->
+      </div>
+    </div>
+
+    <script>
+      const prapor = document.querySelector(".prapor");
+      const numberOfSmuhas = 300; // Кількість смуг (відповідає ширині контейнера в px)
+      const animationDuration = 2; // Тривалість анімації з CSS
+
+      for (let i = 0; i < numberOfSmuhas; i++) {
+        const smuha = document.createElement("div");
+        smuha.classList.add("smuha");
+        // Розраховуємо затримку, щоб хвиля плавно проходила по всьому прапору
+        const delay = (i / numberOfSmuhas) * -animationDuration;
+        smuha.style.animationDelay = `${delay}s`;
+        prapor.appendChild(smuha);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+  margin: 0;
+}
+
+.prapor-container {
+  width: 300px;
+  height: 200px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.prapor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  transform-origin: 0% 50%;
+  animation: wave 6s infinite ease-in-out; /* Збільшимо тривалість для плавності */
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.8));
+}
+
+/* Стилі для смуг прапора та їх анімації */
+.smuha {
+  width: 1px; /* Кожна смуга шириною 1px */
+  height: 100%;
+  background: linear-gradient(to bottom, #005bbb 50%, #ffd500 50%);
+  animation: wave-smuha 1.5s infinite ease-in-out;
+  transform-origin: center;
+  position: relative; /* Необхідно для позиціонування псевдоелемента тіні */
+}
+
+/* Псевдоелемент для рухомої тіні, тепер застосований до кожної смуги.
+   Це дозволяє тіні рухатися разом з хвилею. */
+.smuha::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  background-size: 300% 100%; /* Робимо градієнт ширшим для плавних складок */
+  animation: shadows 4s infinite linear; /* Трохи пришвидшимо рух тіні */
+  mix-blend-mode: multiply;
+}
+
+/* Анімація для окремих смуг, що створює ефект хвилі */
+@keyframes wave-smuha {
+  50% {
+    /* Використовуємо translateY для створення ефекту піднесення/опускання,
+       що створює реалістичну хвилю на тканині. */
+    transform: translateY(20px);
+  }
+}
+
+/* Анімація, що поєднує обертання та деформацію */
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotateY(0deg) skewY(0deg);
+  }
+  25% {
+    transform: rotateY(20deg) skewY(-5deg) skewX(2deg);
+  }
+  50% {
+    transform: rotateY(0deg) skewY(0deg);
+  }
+  75% {
+    transform: rotateY(-20deg) skewY(5deg) skewX(-2deg);
+  }
+}
+
+/* Анімація рухомої тіні */
+@keyframes shadows {
+  0% {
+    background-position: 150% 0; /* Початкова позиція за межами видимості */
+  }
+  100% {
+    background-position: -150% 0; /* Кінцева позиція за межами видимості */
+  }
+}
